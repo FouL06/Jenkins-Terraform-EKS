@@ -1,0 +1,11 @@
+# Terraform Jenkins Deployment
+# Version: v1.0
+# Author: Ashton Foulger
+
+owner_tag      = "<your email>"
+cluster_name   = "jenkins_playground"
+instance_types = "t3.small"
+desired_size   = 1
+max_size       = 5
+min_size       = 1
+
