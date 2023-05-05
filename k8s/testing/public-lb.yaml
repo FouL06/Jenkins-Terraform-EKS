@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: afoulger-jenkins-playground-public-lb
+  name: jenkins-playground-public-lb
   annotations:
     service.beta.kubernetes.io/aws-load-balancer-type: nlb
 spec:
