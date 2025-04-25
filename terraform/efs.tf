@@ -7,7 +7,7 @@ resource "aws_security_group" "efs_mount_sg" {
     protocol    = "tcp"
     from_port   = 2049
     to_port     = 2049
-    cidr_blocks = ["192.168.0.0/16"]
+    cidr_blocks = ["10.0.0.0/16"]
   }
 
   tags = {
@@ -17,7 +17,7 @@ resource "aws_security_group" "efs_mount_sg" {
 }
 
 resource "aws_efs_file_system" "jenkins_efs_file_system" {
-  creation_token   = "creation-token"
+  creation_token   = "jenkins-efs-${var.owner_tag}"
   performance_mode = "generalPurpose"
   throughput_mode  = "bursting"
   encrypted        = true
@@ -31,6 +31,12 @@ resource "aws_efs_file_system" "jenkins_efs_file_system" {
 resource "aws_efs_mount_target" "jenkins_efs_mount_target" {
   file_system_id  = aws_efs_file_system.jenkins_efs_file_system.id
   subnet_id       = aws_subnet.jenkins_private_subnet_1.id
+  security_groups = [aws_security_group.efs_mount_sg.id]
+}
+
+resource "aws_efs_mount_target" "jenkins_efs_mount_target_2" {
+  file_system_id = aws_efs_file_system.jenkins_efs_file_system.id
+  subnet_id = aws_subnet.jenkins_private_subnet_2.id
   security_groups = [aws_security_group.efs_mount_sg.id]
 }
 

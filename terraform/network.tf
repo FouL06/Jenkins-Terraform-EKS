@@ -72,8 +72,6 @@ resource "aws_subnet" "jenkins_public_subnet_2" {
 }
 
 resource "aws_eip" "jenkins_nat" {
-  vpc = true
-
   tags = {
     Name  = "jenkins_nat"
     Owner = var.owner_tag
